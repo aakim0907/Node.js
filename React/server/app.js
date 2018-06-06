@@ -27,7 +27,9 @@ mongoose.connect('mongodb://localhost/lightblog');
 mongoose.set('debug', true);
 
 // Add models
+require('./models/Articles');
 // Add routes
+app.use(require('./routes'));
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
