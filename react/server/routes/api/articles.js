@@ -30,17 +30,17 @@ router.post('/', (req, res, next) => {
   }
 
   const finalArticle = new Articles(body);
-  console.log(finalArticle.toJSON());
   return finalArticle.save()
-    .then(() => res.json({ article: finalArticle.toJSON() }))
+    .then(() => res.json({ article: finalArticle.toObject() }))
+    // toObject vs toJSON
     .catch(next);
-});
-
-router.get('/', (req, res, next) => {
-  return Articles.find()
+  });
+  
+  router.get('/', (req, res, next) => {
+    return Articles.find()
     .sort({ createdAt: 'descending' })
     .then((articles) => res.json({ articles: articles.map(article => article.toObject()) }))
-    // toJSON() vs toObject()
+    // toObject vs toJSON
     .catch(next);
 });
 
