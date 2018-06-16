@@ -13,8 +13,26 @@ export default (state={ articles: [] }, action) => {
     case 'DELETE_ARTICLE':
       return {
         ...state,
-        articles: state.articles.filter(article => article._id !== action.id )
+        articles: state.articles.filter( article => article._id !== action.id )
       };
+    case 'SET_EDIT':
+      return {
+        ...state,
+        articleToEdit: action.article
+      }
+    case 'EDIT_ARTICLE':
+      return {
+        ...state,
+        articles: state.articles.map( article => {
+          if (article._id === action.data.article._id) {
+            return {
+              ...action.data.article
+            }
+          }
+          return article;
+        }),
+        articleToEdit: undefined
+      }
     default: 
       return state;
   }

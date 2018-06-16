@@ -57,7 +57,7 @@ router.param('id', (req, res, next, id) => {
 
 router.get('/:id', (req, res, next) => {
   return res.json({
-    article: req.article.toJSON(),
+    article: req.article.toObject(),
   });
 });
 
@@ -77,7 +77,7 @@ router.patch('/:id', (req, res, next) => {
   }
 
   return req.article.save()
-    .then(() => res.json({ article: req.article.toJSON() }))
+    .then(() => res.json({ article: req.article.toObject() }))
     .catch(next);
 });
 

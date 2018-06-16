@@ -9,6 +9,7 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   componentDidMount() {
@@ -24,10 +25,15 @@ class Home extends React.Component {
     return axios.delete(`http://localhost:8000/api/articles/${id}`)
       .then(() => onDelete(id));
   }
+
+  handleEdit(article) {
+    const { setEdit } = this.props;
+
+    setEdit(article);
+  }
   
   render() {
     const { articles } = this.props;
-    console.log(articles);
 
     return (
       <div className="container">
@@ -50,7 +56,7 @@ class Home extends React.Component {
                 </div>
                 <div className="card-footer">
                   <div className="row">
-                    <button className="btn btn-primary mx-3">
+                    <button className="btn btn-primary mx-3" onClick={() => this.handleEdit(article)}>
                       Edit
                     </button>
                     <button className="btn btn-danger" onClick={() => this.handleDelete(article._id)}>
@@ -73,7 +79,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onLoad: data => dispatch({ type: 'HOME_PAGE_LOADED', data }),
-  onDelete: id => dispatch({ type: 'DELETE_ARTICLE', id })
+  onDelete: id => dispatch({ type: 'DELETE_ARTICLE', id }),
+  setEdit: article => dispatch({ type: 'SET_EDIT', article })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
