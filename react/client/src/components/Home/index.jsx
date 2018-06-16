@@ -1,19 +1,33 @@
 import React from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import { connect } from 'react-redux';
 
 import { Form } from '../Article';
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
   componentDidMount() {
     const { onLoad } = this.props;
 
     axios('http://localhost:8000/api/articles')
       .then(res => onLoad(res.data));
   }
+
+  handleDelete(id) {
+    const { onDelete } = this.props;
+
+    return axios.delete(`http://localhost:8000/api/articles/${id}`)
+      .then(() => onDelete(id));
+  }
   
   render() {
     const { articles } = this.props;
+    console.log(articles);
 
     return (
       <div className="container">
@@ -32,13 +46,17 @@ class Home extends React.Component {
                 </div>
                 <div className="card-body">
                   {article.body}
+                  <p className="mt-5 text-muted"><b>{article.author}</b> {moment(new Date(article.createdAt)).fromNow()}</p>
                 </div>
                 <div className="card-footer">
-                  <i>{article.author}
-                    <p className="float-right">
-                      {new Date(article.createdAt).toLocaleDateString()}
-                    </p>
-                  </i>
+                  <div className="row">
+                    <button className="btn btn-primary mx-3">
+                      Edit
+                    </button>
+                    <button className="btn btn-danger" onClick={() => this.handleDelete(article._id)}>
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -54,7 +72,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: data => dispatch({ type: 'HOME_PAGE_LOADED', data })
+  onLoad: data => dispatch({ type: 'HOME_PAGE_LOADED', data }),
+  onDelete: id => dispatch({ type: 'DELETE_ARTICLE', id })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

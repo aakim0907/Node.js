@@ -30,7 +30,13 @@ class Form extends React.Component {
       title,
       body,
       author
-    }).then(res => onSubmit(res.data));
+    })
+      // .then(res => onSubmit(res.data))
+      .then(res => {
+        console.log(res);
+        onSubmit(res.data);
+      })
+      .then(() => this.setState({ title: '', body: '', author: '' }))
   }
   
   render() {
