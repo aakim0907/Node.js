@@ -8,3 +8,7 @@ A simple blog app with CRUD features. Built according to [this tutorial](https:/
 * Using Node.js
 
 ## Node and Vue
+A Vue.js project
+
+#### Takeaways
+* eol-last: require newline at the end of files 
