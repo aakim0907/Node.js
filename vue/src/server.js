@@ -34,6 +34,7 @@ app.use((req, res, next) => {
 })
 
 // For ease of this tutorial, we are going to use SQLite to limit dependencies
+// Sequelize is a promise-based ORM for Node.js
 let database = new Sequelize({
   dialect: 'sqlite',
   storage: './test.sqlite'
@@ -47,6 +48,7 @@ let Post = database.define('posts', {
 })
 
 // Initialize epilogue
+// Epilogue creates flexible REST endpoints from Sequelize models within an Express app
 epilogue.initialize({
   app: app,
   sequelize: database

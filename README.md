@@ -11,4 +11,5 @@ A simple blog app with CRUD features. Built according to [this tutorial](https:/
 A Vue.js project
 
 #### Takeaways
-* eol-last: require newline at the end of files 
+* eol-last: require newline at the end of files
+* ORM (Object-Relational Mapping)
