@@ -8,8 +8,9 @@ A simple blog app with CRUD features. Built according to [this tutorial](https:/
 * Using Node.js
 
 ## Node and Vue
-A Vue.js project
+A post management app with CRUD features. Built according to [this tutorial](https://www.sitepoint.com/build-a-basic-crud-app-with-vue-js-and-node/).
 
 #### Takeaways
 * eol-last: require newline at the end of files
 * ORM (Object-Relational Mapping)
+* Using Vue.js
